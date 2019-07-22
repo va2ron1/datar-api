@@ -1,3 +1,4 @@
+
 # DATAR API
 Environment variables (.env)
 
@@ -9,9 +10,18 @@ Environment variables (.env)
     IBM_WATSON_VERSION='2018-11-16'
     IBM_WATSON_API_KEY=''
     SESSION_SECRET=''
-To start the project run:
+**Note:** Use the same database from [DATAR API Keys Management](https://github.com/va2ron1/datar-management)
+## Install
 
-		npm start
+```bash
+npm install
+```
+
+## Usage
+
+```bash
+npm start
+```
 # Changes
 The project has been split into a few parts:
 ### Core
