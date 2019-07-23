@@ -169,10 +169,11 @@ app.get('/v1/data/:auth_key', auth_key_cors, (req, res, next) => {
   })
   .then((response) => {
     response.data.hits.hits.forEach(function (obj, index) {
-    	obj._source['entities'] = obj._source.result.entities;
-    	obj._source['keywords'] = obj._source.result.keywords;
-    	// remove keys (maybe in the future will needed)
-    	delete obj._source.result;
+      // // Future rearrangement data for getting all data
+    	// obj._source['entities'] = obj._source.result.entities;
+    	// obj._source['keywords'] = obj._source.result.keywords;
+    	// // remove keys (maybe in the future will needed)
+    	// delete obj._source.result;
     	this[index] = obj._source;
     }, response.data.hits.hits);
     return res.out(200, response.data.hits.hits);
