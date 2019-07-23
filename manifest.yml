@@ -1,4 +1,4 @@
 applications:
- - name: datar
+ - name: datarApi
    random-route: true
    memory: 256M
