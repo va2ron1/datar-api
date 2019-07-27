@@ -132,11 +132,11 @@ app.post('/v1/data', auth_key_cors, (req, res, next) => {
       })
       .then((res) => {})
       .catch((error) => {
-        return res.out(400, undefined, "Something wrong with the search engine");
+        // Something wrong with the search engine
       })
     })
     .catch(err => {
-        return res.out(400, undefined, "Something wrong with the server");
+        // Something wrong with the request to ibm cloud
     });
   })
   return res.out(200, undefined, "Your request has been posted");
@@ -181,6 +181,7 @@ app.get('/v1/data', auth_key_cors, (req, res, next) => {
     return res.out(200, response.data.hits.hits);
   })
   .catch((error) => {
+    // Something happen or Nothing found in Elasticsearch
     return res.out(400, [{"data": "Nothing has been found with your search."}], "Nothing found");
   })
 })
