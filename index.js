@@ -54,9 +54,9 @@ app.use(responses);
 // Auth key and cors verification callback for all endpoint
 auth_key_cors = (req, res, next) => {
   // if auth key exists, then
-  if (req.params.auth_key) {
+  if (req.query.auth_key) {
     // lookup for auth key in database
-    db.query('select key, origins from auth_keys where key = \'' + req.params.auth_key + '\' and enabled = true')
+    db.query('select key, origins from auth_keys where key = \'' + req.query.auth_key + '\' and enabled = true')
     .then(response => {
       // if the response is more than zero, means the auth key exist, then
       if (response.rowCount > 0) {
@@ -67,6 +67,7 @@ auth_key_cors = (req, res, next) => {
         } else {
           res.header("Access-Control-Allow-Origin", "https://datar.online");
         }
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
         next();
       } else {
         res.header("Access-Control-Allow-Origin", "*");
@@ -92,9 +93,10 @@ auth_key_cors = (req, res, next) => {
     }, undefined);
   }
 }
+app.use(auth_key_cors);
 
 // Post insertion request endpoint
-app.post('/v1/data/:auth_key', auth_key_cors, (req, res, next) => {
+app.post('/v1/data', auth_key_cors, (req, res, next) => {
   if (!req.body.data) {
     return res.out(400, {
       "errors": [
@@ -123,7 +125,7 @@ app.post('/v1/data/:auth_key', auth_key_cors, (req, res, next) => {
 
     naturalLanguageUnderstanding.analyze(analyzeParams)
     .then(analysisResults => {
-      axios.put('http://localhost:9200/watson/_doc/1?pretty', {
+      axios.post('http://localhost:9200/watson/_doc/', {
         createdAt: Math.floor(Date.now() / 1000),
         data: origData,
         result: analysisResults
@@ -140,7 +142,7 @@ app.post('/v1/data/:auth_key', auth_key_cors, (req, res, next) => {
   return res.out(200, undefined, "Your request has been posted");
 })
 
-app.get('/v1/data/:auth_key', auth_key_cors, (req, res, next) => {
+app.get('/v1/data', auth_key_cors, (req, res, next) => {
   if (!req.query.search) {
     return res.out(400, {
       "errors": [
@@ -179,7 +181,7 @@ app.get('/v1/data/:auth_key', auth_key_cors, (req, res, next) => {
     return res.out(200, response.data.hits.hits);
   })
   .catch((error) => {
-    return res.out(400, [], "Nothing found");
+    return res.out(400, [{"data": "Nothing has been found with your search."}], "Nothing found");
   })
 })
 
