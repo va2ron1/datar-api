@@ -28,6 +28,10 @@ npm install
 ```bash
 npm start
 ```
+# Documentation 
+The API Documentation is located at 
+https://github.com/va2ron1/datar-api/wiki/API-Documentation
+
 # Changes
 The project has been split into a few parts:
 ### Core
