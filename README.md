@@ -43,4 +43,4 @@ The project has been split into a few parts:
 - [Mobile App](https://github.com/va2ron1/datar-ios-demo) (iOS version) (rebuilt from scratch)
 - [Text Messaging](https://github.com/va2ron1/datar-sms-demo) (# Not available)
 # License
-See [Apache License 2.0](https://github.com/va2ron1/datar-node-api/blob/master/LICENSE)
+See [Apache License 2.0](https://github.com/va2ron1/arecibo-observatory-data-upload-script/blob/master/LICENSE)
